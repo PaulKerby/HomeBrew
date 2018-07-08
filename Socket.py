@@ -4,22 +4,22 @@
 import RPi.GPIO as GPIO
 import time
 
-# The On/Off code pairs correspond to the hand controller codes.
-# True = '1', False ='0'
-# 0011 and 1011 all ON and OFF
-# 1111 and 0111 socket 1
-# 1110 and 0110 socket 2
-# 1101 and 0101 socket 3
-# 1100 and 0100 socket 4
+# D3 = 13, D2 = 16, D1 = 15, D0 = 11
 
-# D0 = 11, D1 = 15, D2 = 16, D3 = 13
-socket_clear = { 11: False, 15:False, 16:False, 13:False }
+#D3 D2 D1 D0 Meaning D3 D2 D1 D0 Meaning
+#1 0 1 1 All      on 0 0 1 1 All off
+#1 1 1 1 socket 1 on 0 1 1 1 socket 1 off
+#1 1 1 0 socket 2 on 0 1 1 0 socket 2 off
+#1 1 0 1 socket 3 on 0 1 0 1 socket 3 off
+#1 1 0 0 socket 4 on 0 1 0 0 socket 4 off
 
-socket_one_on = { 11: True, 15:True, 16:True, 13:True }
-socket_one_off = { 11: False, 15:True, 16:True, 13:True }
+socket_clear = 		{ 13: False, 	16:False, 	15:False, 	11:False }
 
-socket_two_on = { 11: True, 15:True, 16:True, 13:False }
-socket_two_off = { 11: False, 15:True, 16:True, 13:False }
+socket_one_on = 	{ 13: True, 	16:True, 	15:True, 	11:True }
+socket_one_off = 	{ 13: False, 	16:True, 	15:True, 	11:True }
+
+socket_two_on = 	{ 13: True, 	16:True, 	15:True, 	11:False }
+socket_two_off = 	{ 13: False, 	16:True, 	15:True, 	11:False }
 
 def Initialise():
 	# set the pins numbering mode
