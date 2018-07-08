@@ -18,6 +18,9 @@ socket_clear = { 11: False, 15:False, 16:False, 13:False }
 socket_one_on = { 11: True, 15:True, 16:True, 13:True }
 socket_one_off = { 11: False, 15:True, 16:True, 13:True }
 
+socket_two_on = { 11: True, 15:True, 16:True, 13:False }
+socket_two_off = { 11: False, 15:True, 16:True, 13:False }
+
 def Initialise():
 	# set the pins numbering mode
 	GPIO.setmode(GPIO.BOARD)
