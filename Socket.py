@@ -56,41 +56,41 @@ def SetModulator():
 	GPIO.output (22, False)
 
 
-try:
-	# We will just loop round switching the unit on and off
-	while True:
-		raw_input('hit return key to send socket 1 ON code')
-		# Set K0-K3
-		print "sending code 1111 socket 1 on"
-		GPIO.output (11, True)
-		GPIO.output (15, True)
-		GPIO.output (16, True)
-		GPIO.output (13, True)
-		SetModulator()
-		raw_input('hit return key to send socket 1 OFF code')
-		# Set K0-K3
-		print "sending code 0111 Socket 1 off"
-		GPIO.output (11, True)
-		GPIO.output (15, True)
-		GPIO.output (16, True)
-		GPIO.output (13, False)
-		SetModulator()
-		raw_input('hit return key to send ALL ON code')
-		# Set K0-K3
-		print "sending code 1011 ALL on"
-		GPIO.output (11, True)
-		GPIO.output (15, True)
-		GPIO.output (16, False)
-		GPIO.output (13, True)
-		SetModulator()
-		raw_input('hit return key to send ALL OFF code')
-		# Set K0-K3
-		print "sending code 0011 All off"
-		GPIO.output (11, True)
-		GPIO.output (15, True)
-		GPIO.output (16, False)
-		GPIO.output (13, False)
-		SetModulator()
-	
-	except KeyboardInterrupt:
-		GPIO.cleanup()
+#try:
+#	# We will just loop round switching the unit on and off
+#	while True:
+#		raw_input('hit return key to send socket 1 ON code')
+#		# Set K0-K3
+#		print "sending code 1111 socket 1 on"
+#		GPIO.output (11, True)
+#		GPIO.output (15, True)
+#		GPIO.output (16, True)
+#		GPIO.output (13, True)
+#		SetModulator()
+#		raw_input('hit return key to send socket 1 OFF code')
+#		# Set K0-K3
+#		print "sending code 0111 Socket 1 off"
+#		GPIO.output (11, True)
+#		GPIO.output (15, True)
+#		GPIO.output (16, True)
+#		GPIO.output (13, False)
+#		SetModulator()
+#		raw_input('hit return key to send ALL ON code')
+#		# Set K0-K3
+#		print "sending code 1011 ALL on"
+#		GPIO.output (11, True)
+#		GPIO.output (15, True)
+#		GPIO.output (16, False)
+#		GPIO.output (13, True)
+#		SetModulator()
+#		raw_input('hit return key to send ALL OFF code')
+#		# Set K0-K3
+#		print "sending code 0011 All off"
+#		GPIO.output (11, True)
+#		GPIO.output (15, True)
+#		GPIO.output (16, False)
+#		GPIO.output (13, False)
+#		SetModulator()
+#	
+#	except KeyboardInterrupt:
+#		GPIO.cleanup()
