@@ -4,6 +4,20 @@
 import RPi.GPIO as GPIO
 import time
 
+# The On/Off code pairs correspond to the hand controller codes.
+# True = '1', False ='0'
+# 0011 and 1011 all ON and OFF
+# 1111 and 0111 socket 1
+# 1110 and 0110 socket 2
+# 1101 and 0101 socket 3
+# 1100 and 0100 socket 4
+
+# D0 = 11, D1 = 15, D2 = 16, D3 = 13
+socket_clear = { 11: False, 15:False, 16:False, 13:False }
+
+socket_one_on = { 11: True, 15:True, 16:True, 13:True }
+socket_one_off = { 11: False, 15:True, 16:True, 13:True }
+
 def Initialise():
 	# set the pins numbering mode
 	GPIO.setmode(GPIO.BOARD)
@@ -23,11 +37,13 @@ def Initialise():
 	# by setting MODSEL pin lo
 	GPIO.output (18, False)
 	# Initialise K0-K3 inputs of the encoder to 0000
-	GPIO.output (11, False)
-	GPIO.output (13, False)
-	GPIO.output (15, False)
-	GPIO.output (16, False)
+	SetSocket( socket_clear )
 
+	
+def SetSocket( bits ):
+	for key, val in bits.items():
+		GPIO.output(key, val)
+	
 	
 def SetModulator():
 	# let it settle, encoder requires this
@@ -39,14 +55,6 @@ def SetModulator():
 	# Disable the modulator
 	GPIO.output (22, False)
 
-
-# The On/Off code pairs correspond to the hand controller codes.
-# True = '1', False ='0'
-# 0011 and 1011 all ON and OFF
-# 1111 and 0111 socket 1
-# 1110 and 0110 socket 2
-# 1101 and 0101 socket 3
-# 1100 and 0100 socket 4
 
 try:
 	# We will just loop round switching the unit on and off
