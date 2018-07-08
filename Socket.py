@@ -44,6 +44,7 @@ def SetSocket( bits ):
 	for key, val in bits.items():
 		GPIO.output(key, val)
 	
+	SetModulator()
 	
 def SetModulator():
 	# let it settle, encoder requires this
