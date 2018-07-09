@@ -11,43 +11,26 @@ from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-progname = os.path.basename(sys.argv[0])
-progversion = "0.1"
-
 temps = []
 temp_x = []
 
-class MyMplCanvas(FigureCanvas):
+
+class TempSensorGraph(FigureCanvas):
 	def __init__(self, parent=None, width=5, height=4, dpi=100):
 		fig = Figure(figsize=(width, height), dpi=dpi)
 		self.axes = fig.add_subplot(111)
-
-		self.compute_initial_figure()
-
+		
 		FigureCanvas.__init__(self, fig)
 		self.setParent(parent)
 
-		FigureCanvas.setSizePolicy(self,
-								   QtWidgets.QSizePolicy.Expanding,
-								   QtWidgets.QSizePolicy.Expanding)
+		FigureCanvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
 		FigureCanvas.updateGeometry(self)
 
-	def compute_initial_figure(self):
-		pass
-
-
-class MyDynamicMplCanvas(MyMplCanvas):
-	def __init__(self, *args, **kwargs):
-		MyMplCanvas.__init__(self, *args, **kwargs)
-		timer = QtCore.QTimer(self)
-		timer.timeout.connect(self.update_figure)
-		timer.start(1000)
-
-	def compute_initial_figure(self):
-		pass
+		self.timer = QtCore.QTimer(self)
+		self.timer.timeout.connect(self.update_figure)
+		self.timer.start(1000)
 
 	def update_figure(self):
-		
 		temps.append( random.randint(18,22) )
 		temp_x.append( len(temp_x) + 1 )
 		
@@ -76,7 +59,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.main_widget = QtWidgets.QWidget(self)
 
 		l = QtWidgets.QVBoxLayout(self.main_widget)
-		dc = MyDynamicMplCanvas(self.main_widget, width=5, height=4, dpi=100)
+		dc = TempSensorGraph(self.main_widget, width=5, height=4, dpi=100)
 		l.addWidget(dc)
 
 		self.main_widget.setFocus()
@@ -97,7 +80,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 qApp = QtWidgets.QApplication(sys.argv)
 
 aw = ApplicationWindow()
-aw.setWindowTitle("%s" % progname)
+aw.setWindowTitle("Brew")
 aw.show()
 sys.exit(qApp.exec_())
 #qApp.exec_()
