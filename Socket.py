@@ -21,6 +21,25 @@ socket_one_off = 	{ 13: False, 	16:True, 	15:True, 	11:True }
 socket_two_on = 	{ 13: True, 	16:True, 	15:True, 	11:False }
 socket_two_off = 	{ 13: False, 	16:True, 	15:True, 	11:False }
 
+
+def SetModulator():
+	# let it settle, encoder requires this
+	time.sleep(0.1)
+	# Enable the modulator
+	GPIO.output (22, True)
+	# keep enabled for a period
+	time.sleep(0.25)
+	# Disable the modulator
+	GPIO.output (22, False)
+
+
+def SetSocket( bits ):
+	for key, val in bits.items():
+		GPIO.output(key, val)
+	
+	SetModulator()
+
+	
 def Initialise():
 	# set the pins numbering mode
 	GPIO.setmode(GPIO.BOARD)
@@ -41,24 +60,6 @@ def Initialise():
 	GPIO.output (18, False)
 	# Initialise K0-K3 inputs of the encoder to 0000
 	SetSocket( socket_clear )
-
-	
-def SetSocket( bits ):
-	for key, val in bits.items():
-		GPIO.output(key, val)
-	
-	SetModulator()
-	
-def SetModulator():
-	# let it settle, encoder requires this
-	time.sleep(0.1)
-	# Enable the modulator
-	GPIO.output (22, True)
-	# keep enabled for a period
-	time.sleep(0.25)
-	# Disable the modulator
-	GPIO.output (22, False)
-
 
 #try:
 #	# We will just loop round switching the unit on and off
