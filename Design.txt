@@ -1,0 +1,25 @@
+Start
+ * Name
+ * Kit
+ * Amount
+ 
+Brew
+ * Dste/Time
+ * OG
+ * OG Temp
+ * Pitch Temp
+ 
+Fermentation
+ * Temp Graph
+ * Target Temp
+ 
+Bottling
+ * Final OG
+ * ABV
+ * Date/Time
+ * ABV
+ * Bottles 330, 500, 660 amounts
+ * Priming Sugar Amount
+ 
+Drink
+ * Notes
