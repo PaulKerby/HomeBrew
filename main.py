@@ -10,6 +10,9 @@ from PyQt5 import QtCore, QtWidgets
 from numpy import arange, sin, pi
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+from matplotlib.collections import LineCollection
+
+from datetime import datetime
 
 temps = []
 temp_x = []
@@ -18,7 +21,7 @@ temp_x = []
 class TempSensorGraph(FigureCanvas):
 	def __init__(self, parent=None, width=5, height=4, dpi=100):
 		fig = Figure(figsize=(width, height), dpi=dpi)
-		self.axes = fig.add_subplot(111)
+		self.axes = fig.add_subplot(111, aspect='equal')
 		
 		FigureCanvas.__init__(self, fig)
 		self.setParent(parent)
@@ -28,11 +31,11 @@ class TempSensorGraph(FigureCanvas):
 
 		self.timer = QtCore.QTimer(self)
 		self.timer.timeout.connect(self.update_figure)
-		self.timer.start(1000)
+		self.timer.start(100)
 
 	def update_figure(self):
 		temps.append( random.randint(18,22) )
-		temp_x.append( len(temp_x) + 1 )
+		temp_x.append( str(datetime.now()) )
 		
 		self.axes.cla()
 		self.axes.plot(temp_x, temps, 'r')
