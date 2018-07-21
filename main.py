@@ -17,6 +17,30 @@ from datetime import datetime
 temps = []
 temp_x = []
 
+os.system('modprobe w1-gpio')
+os.system('modprobe w1-therm')
+
+temp_sensor_blue = '/sys/bus/w1/devices/28-0417c1167aff/w1_slave'
+temp_sensor_black = '/sys/bus/w1/devices/28-0517c161ccff/w1_slave'
+
+def read_temp_raw( device_file ):
+    f = open(device_file, 'r')
+    lines = f.readlines()
+    f.close()
+    return lines
+ 
+def read_temp( device_file ):
+    lines = read_temp_raw(device_file)
+    while lines[0].strip()[-3:] != 'YES':
+        time.sleep(0.2)
+        lines = read_temp_raw(device_file)
+    equals_pos = lines[1].find('t=')
+    if equals_pos != -1:
+        temp_string = lines[1][equals_pos+2:]
+        temp_c = float(temp_string) / 1000.0
+        temp_f = temp_c * 9.0 / 5.0 + 32.0
+        return temp_c
+
 
 class TempSensorGraph(FigureCanvas):
 	def __init__(self, parent=None, width=5, height=4, dpi=100):
@@ -34,8 +58,10 @@ class TempSensorGraph(FigureCanvas):
 		self.timer.start(100)
 
 	def update_figure(self):
-		temps.append( random.randint(18,22) )
-		temp_x.append( str(datetime.now()) )
+		temp = read_temp(temp_sensor_blue)
+		print(temp)
+		temps.append( temp )
+		temp_x.append( len(temp_x) + 1 )
 		
 		self.axes.cla()
 		self.axes.plot(temp_x, temps, 'r')

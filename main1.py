@@ -13,6 +13,7 @@ df['FridgeOn'] = np.random.randint(low=0, high=2, size=len(df.index))
 print (df.head())
 
 print()
+print()
 
 weekly_summary = pd.DataFrame()
 weekly_summary['AmbientTemp'] = df.AmbientTemp.resample('D').mean()

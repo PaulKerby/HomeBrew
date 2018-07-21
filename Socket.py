@@ -1,5 +1,3 @@
-#sudo apt-get install python-rpi.gpio
-
 #import the required modules
 import RPi.GPIO as GPIO
 import time
@@ -14,10 +12,8 @@ import time
 #1 1 0 0 socket 4 on 0 1 0 0 socket 4 off
 
 socket_clear = 		{ 13: False, 	16:False, 	15:False, 	11:False }
-
 socket_one_on = 	{ 13: True, 	16:True, 	15:True, 	11:True }
 socket_one_off = 	{ 13: False, 	16:True, 	15:True, 	11:True }
-
 socket_two_on = 	{ 13: True, 	16:True, 	15:True, 	11:False }
 socket_two_off = 	{ 13: False, 	16:True, 	15:True, 	11:False }
 
@@ -41,6 +37,7 @@ def SetSocket( bits ):
 
 	
 def Initialise():
+	GPIO.cleanup()
 	# set the pins numbering mode
 	GPIO.setmode(GPIO.BOARD)
 	# Select the GPIO pins used for the encoder K0-K3 data inputs
@@ -60,42 +57,3 @@ def Initialise():
 	GPIO.output (18, False)
 	# Initialise K0-K3 inputs of the encoder to 0000
 	SetSocket( socket_clear )
-
-#try:
-#	# We will just loop round switching the unit on and off
-#	while True:
-#		raw_input('hit return key to send socket 1 ON code')
-#		# Set K0-K3
-#		print "sending code 1111 socket 1 on"
-#		GPIO.output (11, True)
-#		GPIO.output (15, True)
-#		GPIO.output (16, True)
-#		GPIO.output (13, True)
-#		SetModulator()
-#		raw_input('hit return key to send socket 1 OFF code')
-#		# Set K0-K3
-#		print "sending code 0111 Socket 1 off"
-#		GPIO.output (11, True)
-#		GPIO.output (15, True)
-#		GPIO.output (16, True)
-#		GPIO.output (13, False)
-#		SetModulator()
-#		raw_input('hit return key to send ALL ON code')
-#		# Set K0-K3
-#		print "sending code 1011 ALL on"
-#		GPIO.output (11, True)
-#		GPIO.output (15, True)
-#		GPIO.output (16, False)
-#		GPIO.output (13, True)
-#		SetModulator()
-#		raw_input('hit return key to send ALL OFF code')
-#		# Set K0-K3
-#		print "sending code 0011 All off"
-#		GPIO.output (11, True)
-#		GPIO.output (15, True)
-#		GPIO.output (16, False)
-#		GPIO.output (13, False)
-#		SetModulator()
-#	
-#	except KeyboardInterrupt:
-#		GPIO.cleanup()
