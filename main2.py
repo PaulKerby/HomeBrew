@@ -25,7 +25,8 @@ while True:
 	if temp < 19:
 		print('Socket On')
 		Socket.SetSocket(Socket.socket_one_on)
-		time.sleep(120)
+
+	time.sleep(120)
 		
 	Socket.SetSocket(Socket.socket_one_off)
 	
